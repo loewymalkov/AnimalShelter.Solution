@@ -17,8 +17,10 @@ namespace AnimalShelter.Controllers
     public ActionResult Index()
     {
       List<Animal> model = _db.Animals.ToList();
-      return View(model);
+      List<Animal> animalsByType = model.OrderBy(animals => animals.Type).ToList();
+      return View(animalsByType);
     }
+    
     public ActionResult Create()
     {
         return View();
@@ -32,9 +34,9 @@ namespace AnimalShelter.Controllers
         return RedirectToAction("Index");
     }
     public ActionResult Details(int id)
-{
-    Animal thisAnimal = _db.Animals.FirstOrDefault(animals => animals.AnimalId == id);
-    return View(thisAnimal);
-}
+    {
+        Animal thisAnimal = _db.Animals.FirstOrDefault(animals => animals.AnimalId == id);
+        return View(thisAnimal);
+    }
   }
 }
